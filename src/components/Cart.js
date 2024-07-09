@@ -1,35 +1,23 @@
-// Cart.js
-import React, { useState } from 'react';
-import './style.css';
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext';
+import './styles.css';
+
 const Cart = () => {
-  const [cartItems, setCartItems] = useState([]);
-
- 
-  const addToCart = (product) => {
-    setCartItems([...cartItems, product]);
-  };
-
-
-  const removeFromCart = (index) => {
-    const newCartItems = [...cartItems];
-    newCartItems.splice(index, 1);
-    setCartItems(newCartItems);
-  };
+  const { cart, removeFromCart } = useContext(CartContext);
 
   return (
-    <div>
-      <h2>Cart</h2>
-      {cartItems.length === 0 ? (
-        <p>Add something :)</p>
+    <div className="cart">
+      <h1>Cart</h1>
+      {cart.length === 0 ? (
+        <p>Your cart is empty.</p>
       ) : (
-        <ul>
-          {cartItems.map((item, index) => (
-            <li key={index}>
-              <strong>{item.name}</strong> - ${item.price}{' '}
-              <button onClick={() => removeFromCart(index)}>Remove</button>
-            </li>
-          ))}
-        </ul>
+        cart.map(item => (
+          <div key={item.id} className="cart-item">
+            <img src={item.image} alt={item.name} className="cart-item-image" />
+            <h2>{item.name}</h2>
+            <button onClick={() => removeFromCart(item)}>Remove</button>
+          </div>
+        ))
       )}
     </div>
   );

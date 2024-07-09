@@ -5,7 +5,7 @@ const About = () => {
   return (
     <div>
       <h2>About Us</h2>
-      <p>I have done this ecommerce as a part of WAD internal</p>
+      <p>I have done this ecommerce as a part of WAD external</p>
     </div>
   );
 };

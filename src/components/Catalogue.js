@@ -1,38 +1,38 @@
 // Catalogue.js
-import React from 'react';
-import './styles.css'; 
+
+import React, { useContext } from 'react';
+import { CartContext } from '../context/CartContext'; // Adjust the path as per your actual file structure
+import './Catalogue.css';
 
 const products = [
-  {
-    id: 1,
-    name: 'Go-jo hoodie',
-    price: '$19.99',
-    image: 'https://m.media-amazon.com/images/I/417TIBahiJL._AC_UY1100_.jpg', 
-    description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.'
-  },
-  {
-    id: 2,
-    name: 'kakashi hoodie',
-    price: '$29.99',
-    image: 'https://images-cdn.ubuy.co.in/63559dd5d7c58b1e1e57cf96-mens-anime-hoodies-3d-printing.jpg', 
-    description: 'Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas.'
-  },
-
+  { id: 1, name: 'Product 1', imageUrl: 'https://images-cdn.ubuy.co.in/635ddb1188b6ae453404b343-unisex-jujutsu-kaisen-anime-gojo-satoru.jpg', description: 'Description 1', price: 10 },
+  { id: 2, name: 'Product 2', imageUrl: 'https://m.media-amazon.com/images/I/61WwFra1CSL._AC_UY1000_.jpg', description: 'Description 2', price: 20 },
+  { id: 3, name: 'Product 3', imageUrl: 'https://images-cdn.ubuy.co.in/6353f77f98449e303f51a0a9-taicanon-mens-3d-naruto-hoodie-cool.jpg', description: 'Description 3', price: 30 },
+  { id: 4, name: 'Product 4', imageUrl: 'https://m.media-amazon.com/images/I/61dmrgeUSHL._AC_UY1100_.jpg', description: 'Description 4', price: 40 },
+  { id: 5, name: 'Product 5', imageUrl: 'https://m.media-amazon.com/images/I/61Lp05LRTEL._AC_UY1000_.jpg', description: 'Description 5', price: 50 },
+  { id: 6, name: 'Product 6', imageUrl: 'https://img.joomcdn.net/676d902a87a0f3b35ab4284e187da8451ffb3127_original.jpeg', description: 'Description 6', price: 60 },
+  // Add more products as needed
 ];
 
 const Catalogue = () => {
+  const { addToCart } = useContext(CartContext);
+
+  const handleAddToCart = (product) => {
+    addToCart(product);
+  };
+
   return (
-    <div className="catalogue-container">
-      <h2>Products Catalogue</h2>
+    <div className="catalogue">
+      <h1>Catalogue</h1>
       <div className="products">
-        {products.map((product) => (
-          <div className="product" key={product.id}>
-            <img src={product.image} alt={product.name} />
+        {products.map(product => (
+          <div key={product.id} className="product-card">
+            <img src={product.imageUrl} alt={product.name} className="product-image" />
             <div className="product-details">
-              <h3>{product.name}</h3>
-              <p className="price">{product.price}</p>
+              <h2>{product.name}</h2>
               <p>{product.description}</p>
-              <button>Add to Cart</button>
+              <p>${product.price}</p>
+              <button onClick={() => handleAddToCart(product)}>Add to Cart</button>
             </div>
           </div>
         ))}
